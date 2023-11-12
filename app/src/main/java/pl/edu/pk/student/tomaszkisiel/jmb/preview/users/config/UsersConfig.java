@@ -10,7 +10,7 @@ import java.io.IOException;
 public class UsersConfig {
     @Bean
     public JmbClient jmbClient() throws IOException {
-        JmbClient client = new JmbClient("localhost", 3000);
+        JmbClient client = new JmbClient("pubsub", 3000);
         client.start();
 
         return client;

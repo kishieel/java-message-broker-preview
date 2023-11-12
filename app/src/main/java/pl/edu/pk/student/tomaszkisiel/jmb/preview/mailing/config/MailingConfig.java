@@ -15,8 +15,9 @@ public class MailingConfig {
 
     @Bean
     public JmbClient jmbClient() throws IOException {
-        JmbClient client = new JmbClient("localhost", 3000);
+        JmbClient client = new JmbClient("pubsub", 3000);
 
+        client.subscribe("user.created");
         client.consume((Topic<?> topic) -> {
             if (topic.getTopic().equals("user.created")) {
                 logger.info("Event has been ingested successfully! Confirmation email was sent to the user.");

@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  pubsub:
+    image: gradle:8.3-jdk20-alpine
+    working_dir: "/app"
+    volumes: [ "./:/app" ]
+    networks: [ "jmb-network" ]
+    ports: [ "3000:3000" ]
+    expose: [ "3000" ]
+    command: "gradle --project-cache-dir=/app/.gradle/1 runPubsub"
+
+  users:
+    image: gradle:8.3-jdk20-alpine
+    working_dir: "/app"
+    volumes: [ "./:/app" ]
+    networks: [ "jmb-network" ]
+    ports: [ "8080:8080" ]
+    expose: [ "8080" ]
+    command: "gradle --project-cache-dir=/app/.gradle/2 runUsers"
+
+  mailing:
+    image: gradle:8.3-jdk20-alpine
+    working_dir: "/app"
+    volumes: [ "./:/app" ]
+    networks: [ "jmb-network" ]
+    command: "gradle --project-cache-dir=/app/.gradle/3 runMailing"
+
+
+
+networks:
+  jmb-network: null
